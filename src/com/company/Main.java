@@ -8,8 +8,8 @@ public class Main {
     Random random = new Random();
     String word = "";
     String compWords[] = {"variable","binary","hexadecimal","string","real","boolean","java","python","input","output"};
-    String hangMan[] = {"|_____","|     ","| / | ","| -|- ","|  0  ","|/ |  ","______"};
-    System.out.println("1 or two players");
+    String hangMan[] = {"|_____","| / | ","| -|- ","|  0  ","|/ |  ","______"};
+    System.out.println("1 or 2 players:");
     int players = input.nextInt();
 
     if (players == 1) {
@@ -17,22 +17,25 @@ public class Main {
         word = compWords[compWordIndex];
     }
     if (players == 2) {
+        System.out.println("enter a 6 or more letter word:");
         word = input.next();
     }
 
     int wordLength = word.length();
+    int guesses = 0;
 
-        for (int guesses = 0; guesses < 7; guesses = guesses) {
-            String wordHidden[] = new[wordLength];
+        while (guesses < 6) {
+            String wordHidden[] = new String[wordLength];
             for (int i = 0; i < wordLength; i++) {
                 wordHidden[i] = ("_");
             }
 
             for (int i = 0; i < wordLength; i++) {
-                System.out.println(wordHidden[i]);
+                System.out.print(wordHidden[i]);
             }
+            System.out.println(":");
 
-            for (int i = 0; i < guesses; i++) {
+            for (int i = 0; i < guesses-1; i++) {
                 System.out.println(hangMan[i]);
             }
 
@@ -41,16 +44,18 @@ public class Main {
                 break;
             }
 
-            System.out.println("guess a letter");
+            System.out.println("guess a letter:");
             String charGuess = input.next();
+            boolean guessCorrect = false;
             for (int i = 0; i < wordLength; i++) {
 
                 if (charGuess.charAt(0) == word.charAt(i)) {
                     wordHidden[i] = charGuess;
+                    guessCorrect = true;
                 }
-                else {
-                    guesses++;
-                }
+            if (guessCorrect == false) {
+                guesses++;
+            }
 
             }
 
